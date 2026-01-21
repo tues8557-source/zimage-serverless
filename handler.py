@@ -15,7 +15,17 @@ pipe = AutoPipelineForText2Image.from_pretrained(
 
 def handler(event):
     inp = event.get("input", {})
-    
+    action = inp.get("action", "generate") # 기본값은 생성
+
+    # 🔹 로라 목록 불러오기 요청인 경우
+    if action == "list_loras":
+        lora_dir = "/workspace/loras"
+        if os.path.exists(lora_dir):
+            files = [f for f in os.listdir(lora_dir) if f.endswith('.safetensors')]
+            return {"lora_list": files}
+        else:
+            return {"lora_list": [], "error": "Folder not found"}
+            
     # 🔹 입력 파라미터 추출
     prompt = inp.get("prompt", "")
     lora_name = inp.get("lora_name", None)
