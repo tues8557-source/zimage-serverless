@@ -23,7 +23,7 @@ def handler(event):
 
     # 🔹 로라 동적 로드 로직
     if lora_name:
-        lora_path = f"/runpod-volume/loras/{lora_name}"
+        lora_path = f"/workspace/loras/{lora_name}"
         
         # 파일이 실제로 있을 때만 로드
         if os.path.exists(lora_path):
