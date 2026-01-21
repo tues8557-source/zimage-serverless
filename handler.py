@@ -19,7 +19,7 @@ def handler(event):
 
     # 🔹 [기능 1] 로라 목록 불러오기 요청 처리
     if action == "list_loras":
-        lora_dir = "/workspace/loras"
+        lora_dir = "/loras"
         if os.path.exists(lora_dir):
             files = [f for f in os.listdir(lora_dir) if f.endswith('.safetensors')]
             return {"lora_list": sorted(files)}
@@ -41,7 +41,7 @@ def handler(event):
 
     # 로라 동적 로드/해제
     if lora_name:
-        lora_path = f"/workspace/loras/{lora_name}"
+        lora_path = f"/loras/{lora_name}"
         if os.path.exists(lora_path):
             try:
                 pipe.unload_lora_weights() # 이전 로라 제거
